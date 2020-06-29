@@ -1,0 +1,5 @@
+.vscode/
+__pychance__/
+env/
+parser.out
+parsetab.py
