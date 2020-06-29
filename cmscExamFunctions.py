@@ -37,7 +37,9 @@ def FloatAnalysisBitsToValue(originalBinaryValue):
 
 
 #Usage: argument 1 is a string charecter, argument 2 is "odd" or "even"
-def AsciiParity(charecter,parity):
+def AsciiParity(param):
+    charecter,parity = param.split("+")
+    
     bitRepre = bin(int.from_bytes(charecter.encode(),"big")).replace("0b","")
     numberOfOnes = bitRepre.count("1")
     
@@ -63,28 +65,46 @@ def AsciiParity(charecter,parity):
 
 
 #hexaWord = "FDC62D93" , endian = "be" or "le"
-def ByteOrder(hexaWord,endian):
+def ByteOrder(param):
+    hexaWord,endian = param.split("+")
     byteValue = bin(int(hexaWord,16)).replace("0b","")
     if endian == "be":
-        print(hexaWord[0:2], "-",hexaWord[2:4],"-",hexaWord[4:6],"-",hexaWord[6:8])
         hexlist = [hexaWord[0:2],hexaWord[2:4],hexaWord[4:6],hexaWord[6:8]]
-        print('{:0>8}'.format(bin(int(hexlist[0],16)).replace("0b","")),
+        binlist = ('{:0>8}'.format(bin(int(hexlist[0],16)).replace("0b","")),
             '{:0>8}'.format(bin(int(hexlist[1],16)).replace("0b","")),
             '{:0>8}'.format(bin(int(hexlist[2],16)).replace("0b","")),
             '{:0>8}'.format(bin(int(hexlist[3],16)).replace("0b",""))
             )
+
+
+        # print(hexaWord[0:2], "-",hexaWord[2:4],"-",hexaWord[4:6],"-",hexaWord[6:8])
+        # print('{:0>8}'.format(bin(int(hexlist[0],16)).replace("0b","")),
+        #     '{:0>8}'.format(bin(int(hexlist[1],16)).replace("0b","")),
+        #     '{:0>8}'.format(bin(int(hexlist[2],16)).replace("0b","")),
+        #     '{:0>8}'.format(bin(int(hexlist[3],16)).replace("0b",""))
+        #     )
 
     elif endian == "le":
-        print(hexaWord[6:8],hexaWord[4:6],hexaWord[2:4],hexaWord[0:2])
         hexlist = [hexaWord[6:8],hexaWord[4:6],hexaWord[2:4],hexaWord[0:2]]
-        print('{:0>8}'.format(bin(int(hexlist[0],16)).replace("0b","")),
+        binlist = ('{:0>8}'.format(bin(int(hexlist[0],16)).replace("0b","")),
             '{:0>8}'.format(bin(int(hexlist[1],16)).replace("0b","")),
             '{:0>8}'.format(bin(int(hexlist[2],16)).replace("0b","")),
             '{:0>8}'.format(bin(int(hexlist[3],16)).replace("0b",""))
-            )
+            )        
+        # print(hexlist)
+        # print('{:0>8}'.format(bin(int(hexlist[0],16)).replace("0b","")),
+        #     '{:0>8}'.format(bin(int(hexlist[1],16)).replace("0b","")),
+        #     '{:0>8}'.format(bin(int(hexlist[2],16)).replace("0b","")),
+        #     '{:0>8}'.format(bin(int(hexlist[3],16)).replace("0b",""))
+        #     )
 
-        #print(byteValue[len(byteValue)-8:len(byteValue)+1],byteValue[16:24],byteValue[8:16],byteValue[0:8])
+    result = {
+        "ByteValue (hex)" : hexlist,
+        "ByteValue (binary)" : binlist
+    }
 
+
+    return result
 
 def IntegerRepresentation(decimalValue):
     decimalValue = int(decimalValue)
