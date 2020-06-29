@@ -31,7 +31,7 @@
         <!--Accordion wrapper-->
 
         <div class="accordion md-accordion accordion-1" id="accordionEx1" role="tablist">
-            {%for function_name,image_url in function_names.items()%}
+            {%for function_name,function_data in function_names.items()%}
             <div class="card">
                 <div class="card-header blue lighten-3 z-depth-1" role="tab" id="{{loop.index0}}">
                   <h5 class="text-uppercase mb-0 py-1">
@@ -50,7 +50,7 @@
                         <p class="mb-0">
                           <form action="{{url_for('search')}}" accept-charset="UTF-8" method="post">
                               <div class="input-group">
-                                  <input type="text" name="search" id="{{function_name}}"  value="" class="form-control">
+                                  <input type="text" name="search" id="{{function_name}}" placeholder="{{function_data[1]}}"  value="" class="form-control">
                                   <span class="input-group-btn ml-3">
                                       <input type="button" name="commit" value="Search" class="btn btn-primary" data-disable-with="Search" 
                                             onclick="trackChange(document.getElementById('{{function_name}}').value,'{{function_name}}')">
@@ -66,7 +66,7 @@
                       <div class="col-md-4 mt-3 pt-2">
                         <div class="view z-depth-1">
                           <!-- <img title="Interger Representation" src="{{url_for('static',filename='IntegerRepresentation.png')}}" alt="" class="img-fluid rounded"> -->
-                          <img title="Interger Representation" src="{{image_url}}" alt="" class="img-fluid rounded">
+                          <img title="Interger Representation" src="{{function_data[0]}}" alt="" class="img-fluid rounded">
                         </div>
                       </div>
                     </div>

@@ -2,6 +2,7 @@ import os
 import time
 from math import log
 from if_condition_generator import *
+
 # number = '00100000,00000000,00000000,00000000'
 def FloatAnalysisBitsToValue(originalBinaryValue):
     originalBinaryValueCommaStripped = originalBinaryValue.replace(",","")
@@ -35,7 +36,6 @@ def FloatAnalysisBitsToValue(originalBinaryValue):
     
     return result
 
-
 #Usage: argument 1 is a string charecter, argument 2 is "odd" or "even"
 def AsciiParity(param):
     charecter,parity = param.split("+")
@@ -62,7 +62,6 @@ def AsciiParity(param):
     # print( "Bit Reresentation: ",BitRepresentation," <----- ", len(bitRepre),"bit") 
     # print("Number Of 1s: " , numberOfOnes)
     # print("Parity Bit: " , parityBit)
-
 
 #hexaWord = "FDC62D93" , endian = "be" or "le"
 def ByteOrder(param):
@@ -139,7 +138,6 @@ def IntegerRepresentation(decimalValue):
     # print("TwosComplementNegativeOut: " , TwosComplementNegativeOut)
     return result
 
-  
 def IntegerAnalysisBitsToValue(hexValue):
     #Sorted positions of the 1 bits delimited by commas (,) without space:	
     binaryValue = bin(int(hexValue,16)).replace("0b","")
@@ -174,7 +172,6 @@ def IntegerAnalysisBitsToValue(hexValue):
     # print(outSortedNumericExpression)
     # print(overAllInterValue)
 
-
 def CodeIfElseTest(ifloop):
     result = parser.parse(ifloop)
     return result
@@ -194,7 +191,7 @@ def CodeIfElseTest(ifloop):
 #IntegerAnalysisBitsToValue("0xC0209400")
 #IntegerRepresentation("500")
 #ByteOrder("83903990","le")
-#AsciiParity("c","odd")
+#AsciiParity("c+odd")
 #FloatAnalysisBitsToValue( "00100000,00000000,00000000,00000000" )
 
 

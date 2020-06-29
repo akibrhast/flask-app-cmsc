@@ -9,12 +9,13 @@ app = Flask(__name__)
 
 #function_names=["FloatAnalysisBitsToValue","AsciiParity","ByteOrder","IntegerRepresentation","IntegerAnalysisBitsToValue","GenerateIfCondition"]
 
-test = {"IntegerRepresentation"         :   "/static/IntegerRepresentation.png",
-        "IntegerAnalysisBitsToValue"    :   "/static/IntegerAnalysisBitsToValue.png",
-        "FloatAnalysisBitsToValue"      :   "/static/FloatAnalysisBitsToValue.png",
-        "AsciiParity"                   :   "/static/AsciiParity.png",
-        "ByteOrder"                     :   "/static/ByteOrder.png",
-        "CodeIfElseTest"                :   "/static/CodeIfElseTest.png"}
+test = {"IntegerRepresentation"         :   ["/static/IntegerRepresentation.png","187"],
+        "IntegerAnalysisBitsToValue"    :   ["/static/IntegerAnalysisBitsToValue.png","0x04180002"],
+        "FloatAnalysisBitsToValue"      :   ["/static/FloatAnalysisBitsToValue.png"," 00100000,00000000,00000000,00000000"],
+        "AsciiParity"                   :   ["/static/AsciiParity.png","c + odd||even"],
+        "ByteOrder"                     :   ["/static/ByteOrder.png","FDC62D93 + be||le"],
+        "CodeIfElseTest"                :   ["/static/CodeIfElseTest.png","if ( X0 == 11 ) {X10 = X0 ;}else {X10 = 11 ;}"]
+        }
 
 @app.route('/')
 def index():
@@ -30,11 +31,7 @@ def search():
            : data:  "c,even"  
     '''
     search_query = request.get_json()
-    #value = search_query['data']
-    #function_called = search_query['function_name']
     func  = getattr(cmscExamFunctions, search_query['function_name'])
-
-
     result = func(search_query['data'])
     return jsonify({'data': render_template('partial.html', object=result)})
 
