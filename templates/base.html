@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    {%block head%}
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+     <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    {%block title%}<title>Hello, world!</title>{%endblock title%}
+    {%endblock head%}
+  </head>
+  <body>
+    {%block navbar%}
+    <nav class="navbar navbar-dark bg-dark mb-2 navbar-expand-lg" >
+
+        <a class="navbar-brand" href="index.html">Exam 1</a>
+
+
+
+       </nav>
+    {%endblock navbar%}
+    <div class="container">
+        <!--Accordion wrapper-->
+
+        <div class="accordion md-accordion accordion-1" id="accordionEx1" role="tablist">
+            {%for function_name,image_url in function_names.items()%}
+            <div class="card">
+                <div class="card-header blue lighten-3 z-depth-1" role="tab" id="{{loop.index0}}">
+                  <h5 class="text-uppercase mb-0 py-1">
+                    <a class="collapsed font-weight-bold white-text" data-toggle="collapse" href="#collapse-{{function_name}}"
+                      aria-expanded="false" aria-controls="collapse-{{function_name}}">
+                      {{function_name}}
+                    </a>
+                  </h5>
+                </div>
+                <div id="collapse-{{function_name}}" class="collapse" role="tabpanel" aria-labelledby="{{loop.index0}}"
+                  data-parent="#accordionEx1">
+                  <div class="card-body">
+                    <div class="row my-4">
+                      <div class="col-md-8">
+                        <h2 class="font-weight-bold mb-3 black-text"></h2>
+                        <p class="mb-0">
+                          <form action="{{url_for('search')}}" accept-charset="UTF-8" method="post">
+                              <div class="input-group">
+                                  <input type="text" name="search" id="{{function_name}}"  value="" class="form-control">
+                                  <span class="input-group-btn ml-3">
+                                      <input type="button" name="commit" value="Search" class="btn btn-primary" data-disable-with="Search" 
+                                            onclick="trackChange(document.getElementById('{{function_name}}').value,'{{function_name}}')">
+                                   </span>
+                              </div>
+                          </form>
+                          
+                        </p>
+                        <p class="mb-0" id='search_result_{{function_name}}' style="white-space: pre-wrap;">
+                        </p>
+                
+                      </div>
+                      <div class="col-md-4 mt-3 pt-2">
+                        <div class="view z-depth-1">
+                          <!-- <img title="Interger Representation" src="{{url_for('static',filename='IntegerRepresentation.png')}}" alt="" class="img-fluid rounded"> -->
+                          <img title="Interger Representation" src="{{image_url}}" alt="" class="img-fluid rounded">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            {%endfor%}
+        </div>
+        <script>
+            //test function for search form
+            function trackChange(value,functionName) {
+                value = {"data":value,function_name:functionName}
+                //console.log(functionName)
+                url = '/search';
+                fetch(url,{method :'POST',
+                           headers:{'Content-Type': 'application/json'},
+                           body   : JSON.stringify(value)})
+                .then(function(response) {
+                return response.json();
+                })
+                .then(function(myJson)
+                {
+                $('#search_result_'+functionName).html(myJson['data']);
+                
+                //document.getElementById('search_result').innerText += JSON.stringify(myJson);
+                // for(const item in store){
+                    //document.getElementById('search_result').innerText += `${item} = ${store[item]}  `;
+                    //document.getElementById('search_result').innerText += JSON.stringify();
+                    //console.log(`${item} = ${store[item]}`);
+                    //console.log(item,store[item])
+            // }
+                //});
+                })
+            }
+        </script>
+    
+
+    </div>
+   
+  </body>
+</html>

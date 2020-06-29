@@ -1,0 +1,7 @@
+{%if object is mapping%}
+    {%for item in object%}
+        {{item}} : {{object[item]}}<br>
+    {%endfor%}
+{%else%}
+    {{object|safe}}
+{%endif%}
